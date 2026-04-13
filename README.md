@@ -7,7 +7,7 @@
 在你的 Ubuntu 機器上執行：
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/YOUR_USERNAME/openab-installer/main/install-k3s-openab.sh -o install.sh
+curl -sSL https://raw.githubusercontent.com/Eevee7828/openab-installer/main/install-k3s-openab.sh -o install.sh
 chmod +x install.sh
 sudo ./install.sh
 ```
