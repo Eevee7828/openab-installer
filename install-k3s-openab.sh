@@ -70,14 +70,21 @@ else
     echo "等待 k3s 啟動..."
     sleep 10
     
-    # 設定 kubectl 權限
-    $SUDO chmod 644 /etc/rancher/k3s/k3s.yaml
-    
     echo -e "${GREEN}✓ k3s 安裝完成${NC}"
 fi
 
-# 設定 kubectl 環境變數
-export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
+# 設定 kubeconfig（標準做法）
+if [ ! -f ~/.kube/config ]; then
+    echo -e "${YELLOW}→ 設定 kubectl 配置...${NC}"
+    mkdir -p ~/.kube
+    $SUDO cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
+    $SUDO chown $USER:$USER ~/.kube/config
+    chmod 600 ~/.kube/config
+    echo -e "${GREEN}✓ kubectl 配置完成${NC}"
+fi
+
+# 設定環境變數（當前 session）
+export KUBECONFIG=~/.kube/config
 
 # ============================================
 # 步驟 3: 檢查是否已安裝 Helm
